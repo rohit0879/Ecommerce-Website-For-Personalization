@@ -3,28 +3,206 @@
     "use strict";
 
 
-    /*
-     * ==========================================================
-     * SALESFORCE INTERACTIONS SDK
-     * ==========================================================
-     */
-
     const SI =
         SalesforceInteractions;
 
 
-    /*
-     * ==========================================================
-     * RESOLVERS / HELPER FUNCTIONS
-     * ==========================================================
-     */
+
+    /* =========================================================
+       RESOLVERS
+    ========================================================= */
 
 
     /*
-     * Get customer email
+     * Find the product card associated with
+     * the clicked element.
      */
 
-    function getCustomerEmail() {
+    function getProductCard(element) {
+
+        if (!element) {
+
+            return null;
+
+        }
+
+
+        return element.closest(
+            ".product-card"
+        );
+
+    }
+
+
+
+    /*
+     * Product ID
+     */
+
+    function getProductId(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.productId;
+
+    }
+
+
+
+    /*
+     * SKU
+     */
+
+    function getProductSku(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.productSku;
+
+    }
+
+
+
+    /*
+     * Product Name
+     */
+
+    function getProductName(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.productName;
+
+    }
+
+
+
+    /*
+     * Product Price
+     */
+
+    function getProductPrice(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return Number(
+            card.dataset.productPrice
+        );
+
+    }
+
+
+
+    /*
+     * Product Category
+     */
+
+    function getProductCategory(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.productCategory;
+
+    }
+
+
+
+    /*
+     * Product Brand
+     */
+
+    function getProductBrand(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.productBrand;
+
+    }
+
+
+
+    /*
+     * Catalog ID
+     */
+
+    function getCatalogId(element) {
+
+        const card =
+            getProductCard(element);
+
+
+        if (!card) {
+
+            return null;
+
+        }
+
+
+        return card.dataset.catalogId;
+
+    }
+
+
+
+    /*
+     * Email
+     */
+
+    function getEmail() {
 
         const input =
             document.getElementById(
@@ -51,158 +229,24 @@
     }
 
 
-    /*
-     * Get product card
-     */
 
-    function getProductCard(
-        element
-    ) {
-
-        if (!element) {
-
-            return null;
-
-        }
-
-
-        return element.closest(
-            ".product-card"
-        );
-
-    }
-
-
-    /*
-     * Product ID
-     */
-
-    function getProductId(
-        element
-    ) {
-
-        const card =
-            getProductCard(
-                element
-            );
-
-
-        if (!card) {
-
-            return null;
-
-        }
-
-
-        return card.dataset.productId;
-
-    }
-
-
-    /*
-     * Product Name
-     */
-
-    function getProductName(
-        element
-    ) {
-
-        const card =
-            getProductCard(
-                element
-            );
-
-
-        if (!card) {
-
-            return null;
-
-        }
-
-
-        return card.dataset.productName;
-
-    }
-
-
-    /*
-     * Product Price
-     */
-
-    function getProductPrice(
-        element
-    ) {
-
-        const card =
-            getProductCard(
-                element
-            );
-
-
-        if (!card) {
-
-            return null;
-
-        }
-
-
-        const price =
-            card.dataset.productPrice;
-
-
-        return price
-            ? Number(price)
-            : null;
-
-    }
-
-
-    /*
-     * Product Category
-     */
-
-    function getProductCategory(
-        element
-    ) {
-
-        const card =
-            getProductCard(
-                element
-            );
-
-
-        if (!card) {
-
-            return null;
-
-        }
-
-
-        return card.dataset.productCategory;
-
-    }
-
-
-    /*
-     * ==========================================================
-     * SITEMAP
-     * ==========================================================
-     */
+    /* =========================================================
+       SITEMAP
+    ========================================================= */
 
     const sitemap = {
 
 
-        /*
-         * ======================================================
-         * GLOBAL
-         * ======================================================
-         */
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
 
         global: {
 
 
             /*
-             * Capture email on outgoing events
+             * Attach known customer email to
+             * outgoing events.
              */
 
             onActionEvent:
@@ -210,10 +254,11 @@
 
 
                     const email =
-                        getCustomerEmail();
+                        getEmail();
 
 
                     if (email) {
+
 
                         event.user =
                             event.user || {};
@@ -235,19 +280,18 @@
 
 
             /*
-             * ==================================================
+             * =================================================
              * LISTENERS
-             * ==================================================
+             * =================================================
              */
 
             listeners: [
 
 
-                /*
-                 * ==============================================
-                 * IDENTITY / EMAIL
-                 * ==============================================
-                 */
+
+                /* =============================================
+                   IDENTITY
+                ============================================= */
 
                 SI.listener(
                     "click",
@@ -256,7 +300,7 @@
 
 
                         const email =
-                            getCustomerEmail();
+                            getEmail();
 
 
                         if (!email) {
@@ -265,10 +309,6 @@
 
                         }
 
-
-                        /*
-                         * Send Identity event
-                         */
 
                         SI.sendEvent({
 
@@ -290,7 +330,7 @@
 
 
                         console.log(
-                            "Identity event sent:",
+                            "Identity event:",
                             email
                         );
 
@@ -298,11 +338,10 @@
                 ),
 
 
-                /*
-                 * ==============================================
-                 * PRODUCT SEARCH
-                 * ==============================================
-                 */
+
+                /* =============================================
+                   PRODUCT SEARCH
+                ============================================= */
 
                 SI.listener(
                     "click",
@@ -310,13 +349,13 @@
                     function () {
 
 
-                        const input =
+                        const searchInput =
                             document.getElementById(
                                 "searchInput"
                             );
 
 
-                        if (!input) {
+                        if (!searchInput) {
 
                             return;
 
@@ -324,7 +363,7 @@
 
 
                         const searchTerm =
-                            input.value.trim();
+                            searchInput.value.trim();
 
 
                         if (!searchTerm) {
@@ -333,10 +372,6 @@
 
                         }
 
-
-                        /*
-                         * Custom Search event
-                         */
 
                         SI.sendEvent({
 
@@ -358,7 +393,7 @@
 
 
                         console.log(
-                            "Search event sent:",
+                            "Product Search:",
                             searchTerm
                         );
 
@@ -366,11 +401,140 @@
                 ),
 
 
-                /*
-                 * ==============================================
-                 * ADD TO CART
-                 * ==============================================
-                 */
+
+                /* =============================================
+                   PRODUCT VIEW
+                ============================================= */
+
+                SI.listener(
+                    "click",
+                    ".view-product-btn",
+                    function (event) {
+
+
+                        const productId =
+                            getProductId(
+                                event.target
+                            );
+
+
+                        const productName =
+                            getProductName(
+                                event.target
+                            );
+
+
+                        const productPrice =
+                            getProductPrice(
+                                event.target
+                            );
+
+
+                        const category =
+                            getProductCategory(
+                                event.target
+                            );
+
+
+                        const brand =
+                            getProductBrand(
+                                event.target
+                            );
+
+
+                        const sku =
+                            getProductSku(
+                                event.target
+                            );
+
+
+                        const catalogId =
+                            getCatalogId(
+                                event.target
+                            );
+
+
+                        if (!productId) {
+
+                            console.error(
+                                "Product ID missing."
+                            );
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * Standard Salesforce
+                         * Catalog View interaction.
+                         */
+
+                        SI.sendEvent({
+
+                            interaction: {
+
+                                name:
+                                    SI
+                                    .CatalogObjectInteractionName
+                                    .ViewCatalogObject,
+
+
+                                catalogObject: {
+
+                                    type:
+                                        "Product",
+
+
+                                    id:
+                                        productId,
+
+
+                                    attributes: {
+
+                                        name:
+                                            productName,
+
+                                        price:
+                                            productPrice,
+
+                                        sku:
+                                            sku,
+
+                                        brand:
+                                            brand,
+
+                                        category:
+                                            category,
+
+                                        catalogId:
+                                            catalogId,
+
+                                        currency:
+                                            "INR"
+
+                                    }
+
+                                }
+
+                            }
+
+                        });
+
+
+                        console.log(
+                            "Product View sent:",
+                            productId
+                        );
+
+                    }
+                ),
+
+
+
+                /* =============================================
+                   ADD TO CART
+                ============================================= */
 
                 SI.listener(
                     "click",
@@ -396,16 +560,34 @@
                             );
 
 
-                        const productCategory =
+                        const category =
                             getProductCategory(
+                                event.target
+                            );
+
+
+                        const brand =
+                            getProductBrand(
+                                event.target
+                            );
+
+
+                        const sku =
+                            getProductSku(
+                                event.target
+                            );
+
+
+                        const catalogId =
+                            getCatalogId(
                                 event.target
                             );
 
 
                         if (!productId) {
 
-                            console.warn(
-                                "Product ID not found."
+                            console.error(
+                                "Product ID missing."
                             );
 
                             return;
@@ -415,7 +597,7 @@
 
                         /*
                          * Standard Salesforce
-                         * Add To Cart interaction
+                         * AddToCart interaction.
                          */
 
                         SI.sendEvent({
@@ -423,8 +605,9 @@
                             interaction: {
 
                                 name:
-                                    SI.CartInteractionName
-                                        .AddToCart,
+                                    SI
+                                    .CartInteractionName
+                                    .AddToCart,
 
 
                                 lineItem: {
@@ -454,8 +637,17 @@
                                         name:
                                             productName,
 
+                                        sku:
+                                            sku,
+
+                                        brand:
+                                            brand,
+
                                         category:
-                                            productCategory
+                                            category,
+
+                                        catalogId:
+                                            catalogId
 
                                     }
 
@@ -467,7 +659,7 @@
 
 
                         console.log(
-                            "Add To Cart event sent:",
+                            "Add To Cart sent:",
                             productId
                         );
 
@@ -479,20 +671,18 @@
         },
 
 
-        /*
-         * ======================================================
-         * PAGE TYPES
-         * ======================================================
-         */
+
+        /* =====================================================
+           PAGE TYPES
+        ===================================================== */
 
         pageTypes: [
 
 
-            /*
-             * ==================================================
-             * HOME
-             * ==================================================
-             */
+
+            /* =================================================
+               HOME
+            ================================================= */
 
             {
 
@@ -502,12 +692,15 @@
                 isMatch:
                     function () {
 
+
                         return (
                             window.location.pathname ===
                                 "/" ||
 
-                            window.location.pathname ===
+                            window.location.pathname.endsWith(
                                 "/index.html"
+                            )
+
                         );
 
                     },
@@ -522,11 +715,10 @@
             },
 
 
-            /*
-             * ==================================================
-             * PRODUCTS
-             * ==================================================
-             */
+
+            /* =================================================
+               PRODUCTS
+            ================================================= */
 
             {
 
@@ -553,162 +745,10 @@
             },
 
 
-            /*
-             * ==================================================
-             * PRODUCT DETAIL
-             * ==================================================
-             *
-             * For the current demo, the product cards are
-             * available on the Products page.
-             *
-             * Therefore we capture the first product as the
-             * catalog object when this page type matches.
-             *
-             * Later we can create separate URLs:
-             *
-             * /products/P001
-             * /products/P002
-             *
-             * ==================================================
-             */
 
-            {
-
-                name:
-                    "Product Detail",
-
-                isMatch:
-                    function () {
-
-
-                        return (
-                            window.location.pathname
-                                .toLowerCase()
-                                .includes(
-                                    "/product/"
-                                )
-                        );
-
-                    },
-
-                interaction: {
-
-                    name:
-                        SI.CatalogObjectInteractionName
-                            .ViewCatalogObject,
-
-
-                    catalogObject: {
-
-                        type:
-                            "Product",
-
-
-                        id:
-                            function () {
-
-                                const card =
-                                    document.querySelector(
-                                        ".product-card"
-                                    );
-
-
-                                if (!card) {
-
-                                    return null;
-
-                                }
-
-
-                                return card.dataset
-                                    .productId;
-
-                            },
-
-
-                        attributes: {
-
-                            name:
-                                function () {
-
-                                    const card =
-                                        document.querySelector(
-                                            ".product-card"
-                                        );
-
-
-                                    if (!card) {
-
-                                        return null;
-
-                                    }
-
-
-                                    return card.dataset
-                                        .productName;
-
-                                },
-
-
-                            price:
-                                function () {
-
-                                    const card =
-                                        document.querySelector(
-                                            ".product-card"
-                                        );
-
-
-                                    if (!card) {
-
-                                        return null;
-
-                                    }
-
-
-                                    return Number(
-                                        card.dataset
-                                            .productPrice
-                                    );
-
-                                },
-
-
-                            category:
-                                function () {
-
-                                    const card =
-                                        document.querySelector(
-                                            ".product-card"
-                                        );
-
-
-                                    if (!card) {
-
-                                        return null;
-
-                                    }
-
-
-                                    return card.dataset
-                                        .productCategory;
-
-                                }
-
-                        }
-
-                    }
-
-                }
-
-            },
-
-
-            /*
-             * ==================================================
-             * SEARCH
-             * ==================================================
-             */
+            /* =================================================
+               SEARCH
+            ================================================= */
 
             {
 
@@ -718,8 +758,9 @@
                 isMatch:
                     function () {
 
-                        return !!document.getElementById(
-                            "searchInput"
+
+                        return !!document.querySelector(
+                            "#searchInput"
                         );
 
                     },
@@ -736,11 +777,10 @@
         ],
 
 
-        /*
-         * ======================================================
-         * DEFAULT
-         * ======================================================
-         */
+
+        /* =====================================================
+           DEFAULT
+        ===================================================== */
 
         pageTypeDefault: {
 
@@ -759,31 +799,24 @@
     };
 
 
-    /*
-     * ==========================================================
-     * INITIALIZE SDK
-     * ==========================================================
-     */
+
+    /* =========================================================
+       INITIALIZE SDK
+    ========================================================= */
 
     SI.init({
 
         /*
-         * Leave dataspace unspecified unless
-         * your Salesforce configuration requires
-         * a specific dataspace.
+         * Keep this empty unless your org
+         * requires a specific Data Space.
          */
 
     })
 
 
-    /*
-     * ==========================================================
-     * INITIALIZE SITEMAP
-     * ==========================================================
-     */
-
     .then(
         function () {
+
 
             console.log(
                 "Salesforce Interactions SDK initialized."
@@ -801,8 +834,9 @@
     .then(
         function () {
 
+
             console.log(
-                "Salesforce Data 360 Sitemap initialized."
+                "Salesforce Data 360 Sitemap initialized successfully."
             );
 
         }
@@ -812,12 +846,14 @@
     .catch(
         function (error) {
 
+
             console.error(
-                "Salesforce Data 360 initialization error:",
+                "Sitemap initialization failed:",
                 error
             );
 
         }
     );
+
 
 })();
