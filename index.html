@@ -17,424 +17,592 @@
         href="style.css"
     >
 
-    <!-- Salesforce Data 360 Website Connector -->
+    <!-- Salesforce Data 360 Web SDK -->
     <script
         src="https://cdn.c360a.salesforce.com/beacon/c360a/40716e49-b459-4f2a-a257-9c791028a830/scripts/c360a.min.js">
     </script>
 
 </head>
 
+
 <body>
 
-    <!-- ================= HEADER ================= -->
 
-    <header class="header">
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
-        <div class="logo">
-            Data360 Store
-        </div>
+<header class="header">
 
-        <nav class="navigation">
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#products">
-                Products
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-        </nav>
-
-        <div class="cart-display">
-
-            🛒 Cart
-
-            <span id="cartCount">
-                0
-            </span>
-
-        </div>
-
-    </header>
+    <div class="logo">
+        Data360 Store
+    </div>
 
 
-    <!-- ================= HERO ================= -->
+    <nav>
 
-    <section
-        id="home"
-        class="hero"
-    >
+        <a href="#home">
+            Home
+        </a>
 
-        <div class="hero-content">
+        <a href="#products">
+            Products
+        </a>
 
-            <h1>
-                Welcome to Data360 Store
-            </h1>
+        <a href="#about">
+            About
+        </a>
 
-            <p>
-                Demo ecommerce website for
-                Salesforce Data 360.
-            </p>
-
-            <a
-                href="#products"
-                class="hero-button"
-            >
-                Shop Now
-            </a>
-
-        </div>
-
-    </section>
+    </nav>
 
 
-    <!-- ================= CUSTOMER EMAIL ================= -->
+    <div class="cart-display">
 
-    <section class="customer-section">
+        🛒 Cart
 
-        <div class="customer-box">
+        <span id="cartCount">
+            0
+        </span>
 
-            <h2>
-                Customer Information
-            </h2>
+    </div>
 
-            <p>
-                Enter your email to identify
-                yourself as a customer.
-            </p>
-
-            <div class="customer-form">
-
-                <input
-                    type="email"
-                    id="customerEmail"
-                    placeholder="Enter your email"
-                    autocomplete="email"
-                >
-
-                <button
-                    type="button"
-                    id="identifyCustomerBtn"
-                >
-                    Identify Customer
-                </button>
-
-            </div>
-
-            <p
-                id="customerMessage"
-                class="customer-message"
-            ></p>
-
-        </div>
-
-    </section>
+</header>
 
 
-    <!-- ================= SEARCH ================= -->
 
-    <section class="search-section">
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section
+    id="home"
+    class="hero"
+>
+
+    <div class="hero-content">
+
+        <h1>
+            Welcome to Data360 Store
+        </h1>
+
+        <p>
+            Demo Ecommerce Website
+            connected with Salesforce Data 360
+        </p>
+
+        <a
+            href="#products"
+            class="hero-button"
+        >
+            Shop Now
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CUSTOMER IDENTITY
+========================================================= -->
+
+<section class="customer-section">
+
+    <div class="customer-box">
 
         <h2>
-            Search Products
+            Customer Information
         </h2>
 
-        <div class="search-box">
+        <p>
+            Enter your email to identify
+            yourself.
+        </p>
+
+
+        <div class="customer-form">
 
             <input
-                type="search"
-                id="searchInput"
-                placeholder="Search products..."
+                type="email"
+                id="customerEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
             >
+
 
             <button
                 type="button"
-                id="searchButton"
+                id="identifyCustomerBtn"
             >
-                Search
+                Identify Customer
             </button>
 
         </div>
 
-    </section>
+
+        <p
+            id="customerMessage"
+        ></p>
+
+    </div>
+
+</section>
 
 
-    <!-- ================= PRODUCTS ================= -->
 
-    <section
-        id="products"
-        class="products-section"
-    >
+<!-- =========================================================
+     SEARCH
+========================================================= -->
 
-        <h2>
-            Our Products
-        </h2>
+<section class="search-section">
 
-        <p class="section-description">
-
-            Select a product or add it to
-            your shopping cart.
-
-        </p>
+    <h2>
+        Search Products
+    </h2>
 
 
-        <div
-            id="productsContainer"
-            class="products-container"
+    <div class="search-box">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search products..."
         >
 
 
-            <!-- ================= PRODUCT 1 ================= -->
+        <button
+            type="button"
+            id="searchButton"
+        >
+            Search
+        </button>
 
-            <div
-                class="product-card"
+    </div>
 
-                data-product-id="P001"
+</section>
 
-                data-product-name="Smart Watch"
 
-                data-product-price="4999"
 
-                data-product-category="Electronics"
-            >
+<!-- =========================================================
+     PRODUCT CATALOG
+========================================================= -->
 
-                <div class="product-image">
-                    ⌚
-                </div>
+<section
+    id="products"
+    class="products-section"
+>
 
-                <h3>
-                    Smart Watch
-                </h3>
 
-                <p class="product-description">
+    <h2>
+        Product Catalog
+    </h2>
 
-                    Smart fitness watch with
-                    health tracking.
 
-                </p>
+    <p class="section-description">
 
-                <p class="price">
-                    ₹4,999
-                </p>
+        Browse products and interact with
+        our Salesforce Data 360 demo.
 
-                <button
-                    type="button"
-                    class="view-product-btn"
-                >
-                    View Product
-                </button>
+    </p>
 
-                <button
-                    type="button"
-                    class="cart-button"
-                >
-                    Add to Cart
-                </button>
 
-            </div>
 
-
-            <!-- ================= PRODUCT 2 ================= -->
-
-            <div
-                class="product-card"
-
-                data-product-id="P002"
-
-                data-product-name="Wireless Headphones"
-
-                data-product-price="2999"
-
-                data-product-category="Electronics"
-            >
-
-                <div class="product-image">
-                    🎧
-                </div>
-
-                <h3>
-                    Wireless Headphones
-                </h3>
-
-                <p class="product-description">
-
-                    Premium wireless headphones
-                    with noise cancellation.
-
-                </p>
-
-                <p class="price">
-                    ₹2,999
-                </p>
-
-                <button
-                    type="button"
-                    class="view-product-btn"
-                >
-                    View Product
-                </button>
-
-                <button
-                    type="button"
-                    class="cart-button"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-
-            <!-- ================= PRODUCT 3 ================= -->
-
-            <div
-                class="product-card"
-
-                data-product-id="P003"
-
-                data-product-name="Laptop"
-
-                data-product-price="64999"
-
-                data-product-category="Computers"
-            >
-
-                <div class="product-image">
-                    💻
-                </div>
-
-                <h3>
-                    Laptop
-                </h3>
-
-                <p class="product-description">
-
-                    High-performance laptop
-                    for developers.
-
-                </p>
-
-                <p class="price">
-                    ₹64,999
-                </p>
-
-                <button
-                    type="button"
-                    class="view-product-btn"
-                >
-                    View Product
-                </button>
-
-                <button
-                    type="button"
-                    class="cart-button"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-
-            <!-- ================= PRODUCT 4 ================= -->
-
-            <div
-                class="product-card"
-
-                data-product-id="P004"
-
-                data-product-name="Smartphone"
-
-                data-product-price="24999"
-
-                data-product-category="Mobile"
-            >
-
-                <div class="product-image">
-                    📱
-                </div>
-
-                <h3>
-                    Smartphone
-                </h3>
-
-                <p class="product-description">
-
-                    Latest smartphone with
-                    powerful performance.
-
-                </p>
-
-                <p class="price">
-                    ₹24,999
-                </p>
-
-                <button
-                    type="button"
-                    class="view-product-btn"
-                >
-                    View Product
-                </button>
-
-                <button
-                    type="button"
-                    class="cart-button"
-                >
-                    Add to Cart
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= ABOUT ================= -->
-
-    <section
-        id="about"
-        class="about"
+    <div
+        id="productsContainer"
+        class="products-container"
     >
 
-        <h2>
-            About Data360 Store
-        </h2>
-
-        <p>
-
-            This website is created to test
-            Salesforce Data 360 Website Connector,
-            Sitemap and Web SDK.
-
-        </p>
-
-    </section>
 
 
-    <!-- ================= FOOTER ================= -->
+        <!-- =================================================
+             PRODUCT 001
+        ================================================== -->
 
-    <footer>
+        <article
+            class="product-card"
 
-        <p>
-            © 2026 Data360 Store
-        </p>
+            data-catalog-id="CAT001"
 
-        <p>
-            Salesforce Data 360 Demo
-        </p>
+            data-product-id="P001"
 
-    </footer>
+            data-product-sku="SW-001"
+
+            data-product-name="Smart Watch"
+
+            data-product-price="4999"
+
+            data-product-category="Electronics"
+
+            data-product-brand="Data360"
+
+            data-product-currency="INR"
+        >
 
 
-    <!-- Normal website JavaScript -->
-    <script src="script.js"></script>
+            <div class="product-image">
+                ⌚
+            </div>
 
-    <!-- Salesforce Sitemap -->
-    <script src="sitemap.js"></script>
+
+            <h3>
+                Smart Watch
+            </h3>
+
+
+            <p class="product-description">
+
+                Smart fitness watch with
+                health tracking.
+
+            </p>
+
+
+            <p class="product-category">
+
+                Category:
+                Electronics
+
+            </p>
+
+
+            <p class="product-sku">
+
+                SKU:
+                SW-001
+
+            </p>
+
+
+            <p class="price">
+                ₹4,999
+            </p>
+
+
+            <button
+                type="button"
+                class="view-product-btn"
+            >
+                View Product
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-button"
+            >
+                Add to Cart
+            </button>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 002
+        ================================================== -->
+
+        <article
+            class="product-card"
+
+            data-catalog-id="CAT001"
+
+            data-product-id="P002"
+
+            data-product-sku="WH-001"
+
+            data-product-name="Wireless Headphones"
+
+            data-product-price="2999"
+
+            data-product-category="Electronics"
+
+            data-product-brand="Data360"
+
+            data-product-currency="INR"
+        >
+
+
+            <div class="product-image">
+                🎧
+            </div>
+
+
+            <h3>
+                Wireless Headphones
+            </h3>
+
+
+            <p class="product-description">
+
+                Premium wireless headphones
+                with noise cancellation.
+
+            </p>
+
+
+            <p class="product-category">
+
+                Category:
+                Electronics
+
+            </p>
+
+
+            <p class="product-sku">
+
+                SKU:
+                WH-001
+
+            </p>
+
+
+            <p class="price">
+                ₹2,999
+            </p>
+
+
+            <button
+                type="button"
+                class="view-product-btn"
+            >
+                View Product
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-button"
+            >
+                Add to Cart
+            </button>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 003
+        ================================================== -->
+
+        <article
+            class="product-card"
+
+            data-catalog-id="CAT002"
+
+            data-product-id="P003"
+
+            data-product-sku="LAP-001"
+
+            data-product-name="Laptop"
+
+            data-product-price="64999"
+
+            data-product-category="Computers"
+
+            data-product-brand="Data360"
+
+            data-product-currency="INR"
+        >
+
+
+            <div class="product-image">
+                💻
+            </div>
+
+
+            <h3>
+                Laptop
+            </h3>
+
+
+            <p class="product-description">
+
+                High-performance laptop
+                for developers.
+
+            </p>
+
+
+            <p class="product-category">
+
+                Category:
+                Computers
+
+            </p>
+
+
+            <p class="product-sku">
+
+                SKU:
+                LAP-001
+
+            </p>
+
+
+            <p class="price">
+                ₹64,999
+            </p>
+
+
+            <button
+                type="button"
+                class="view-product-btn"
+            >
+                View Product
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-button"
+            >
+                Add to Cart
+            </button>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 004
+        ================================================== -->
+
+        <article
+            class="product-card"
+
+            data-catalog-id="CAT003"
+
+            data-product-id="P004"
+
+            data-product-sku="PH-001"
+
+            data-product-name="Smartphone"
+
+            data-product-price="24999"
+
+            data-product-category="Mobile"
+
+            data-product-brand="Data360"
+
+            data-product-currency="INR"
+        >
+
+
+            <div class="product-image">
+                📱
+            </div>
+
+
+            <h3>
+                Smartphone
+            </h3>
+
+
+            <p class="product-description">
+
+                Latest smartphone with
+                powerful performance.
+
+            </p>
+
+
+            <p class="product-category">
+
+                Category:
+                Mobile
+
+            </p>
+
+
+            <p class="product-sku">
+
+                SKU:
+                PH-001
+
+            </p>
+
+
+            <p class="price">
+                ₹24,999
+            </p>
+
+
+            <button
+                type="button"
+                class="view-product-btn"
+            >
+                View Product
+            </button>
+
+
+            <button
+                type="button"
+                class="cart-button"
+            >
+                Add to Cart
+            </button>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section
+    id="about"
+    class="about"
+>
+
+    <h2>
+        About Data360 Store
+    </h2>
+
+
+    <p>
+
+        Demo ecommerce website for
+        Salesforce Data 360 Website
+        Connector and Sitemap.
+
+    </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <p>
+        © 2026 Data360 Store
+    </p>
+
+    <p>
+        Salesforce Data 360 Demo
+    </p>
+
+</footer>
+
+
+
+<!-- Website functionality -->
+<script src="script.js"></script>
+
+
+<!-- Salesforce Sitemap -->
+<script src="sitemap.js"></script>
+
 
 </body>
 
