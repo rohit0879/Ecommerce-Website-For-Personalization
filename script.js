@@ -1,297 +1,3 @@
-let cartCount = 0;
-
-
-/* =========================================
-   Salesforce Helper
-========================================= */
-
-function sendSalesforceEvent(eventData) {
-
-    if (
-        window.SalesforceInteractions &&
-        typeof SalesforceInteractions.sendEvent === "function"
-    ) {
-
-        SalesforceInteractions.sendEvent(eventData);
-
-        console.log(
-            "Salesforce event sent:",
-            eventData
-        );
-
-    } else {
-
-        console.warn(
-            "SalesforceInteractions is not available."
-        );
-
-    }
-}
-
-
-/* =========================================
-   Identify Customer
-========================================= */
-
-function identifyCustomer() {
-
-    const emailInput =
-        document.getElementById("customerEmail");
-
-    const email =
-        emailInput.value.trim();
-
-    const message =
-        document.getElementById("customerMessage");
-
-
-    if (!email) {
-
-        message.textContent =
-            "Please enter your email address.";
-
-        return;
-    }
-
-
-    if (!email.includes("@")) {
-
-        message.textContent =
-            "Please enter a valid email.";
-
-        return;
-    }
-
-
-    /*
-     * Store email locally for this demo.
-     */
-
-    localStorage.setItem(
-        "customerEmail",
-        email
-    );
-
-
-    message.textContent =
-        "Customer identified successfully.";
-
-
-    console.log(
-        "Customer Email:",
-        email
-    );
-
-
-    /*
-     * Send custom interaction.
-     */
-
-    sendSalesforceEvent({
-
-        interaction: {
-
-            name: "Customer Identity",
-
-            attributes: {
-
-                email: email
-
-            }
-
-        }
-
-    });
-
-}
-
-
-/* =========================================
-   Product View
-========================================= */
-
-function viewProduct(
-    productId,
-    productName,
-    price
-) {
-
-    console.log(
-        "Product viewed:",
-        productName
-    );
-
-
-    sendSalesforceEvent({
-
-        interaction: {
-
-            name: "Product View",
-
-            attributes: {
-
-                productId: productId,
-
-                productName: productName,
-
-                price: price
-
-            }
-
-        }
-
-    });
-
-
-    alert(
-        productName +
-        " selected."
-    );
-
-}
-
-
-/* =========================================
-   Add To Cart
-========================================= */
-
-function addToCart(
-    productId,
-    productName,
-    price
-) {
-
-    cartCount++;
-
-    document.getElementById(
-        "cartCount"
-    ).textContent = cartCount;
-
-
-    console.log(
-        "Added to cart:",
-        productName
-    );
-
-
-    sendSalesforceEvent({
-
-        interaction: {
-
-            name: "Add To Cart",
-
-            attributes: {
-
-                productId: productId,
-
-                productName: productName,
-
-                price: price,
-
-                quantity: 1
-
-            }
-
-        }
-
-    });
-
-
-    alert(
-        productName +
-        " added to cart."
-    );
-
-}
-
-
-/* =========================================
-   Search
-========================================= */
-
-function searchProducts() {
-
-    const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
-
-    const searchTerm =
-        searchInput.value.trim();
-
-
-    if (!searchTerm) {
-
-        alert(
-            "Please enter a search term."
-        );
-
-        return;
-    }
-
-
-    console.log(
-        "Search:",
-        searchTerm
-    );
-
-
-    sendSalesforceEvent({
-
-        interaction: {
-
-            name: "Product Search",
-
-            attributes: {
-
-                searchTerm: searchTerm
-
-            }
-
-        }
-
-    });
-
-
-    const products =
-        document.querySelectorAll(
-            ".product-card"
-        );
-
-
-    products.forEach(
-        function (product) {
-
-            const productName =
-                product.dataset.productName
-                    .toLowerCase();
-
-            if (
-                productName.includes(
-                    searchTerm.toLowerCase()
-                )
-            ) {
-
-                product.style.display =
-                    "block";
-
-            } else {
-
-                product.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   Page Load
-========================================= */
-
 document.addEventListener(
     "DOMContentLoaded",
     function () {
@@ -301,6 +7,49 @@ document.addEventListener(
         );
 
 
+        /*
+         * ============================================
+         * CART
+         * ============================================
+         */
+
+        let cartCount = 0;
+
+
+        const cartCountElement =
+            document.getElementById(
+                "cartCount"
+            );
+
+
+        /*
+         * ============================================
+         * CUSTOMER EMAIL
+         * ============================================
+         */
+
+        const emailInput =
+            document.getElementById(
+                "customerEmail"
+            );
+
+
+        const identifyButton =
+            document.getElementById(
+                "identifyCustomerBtn"
+            );
+
+
+        const customerMessage =
+            document.getElementById(
+                "customerMessage"
+            );
+
+
+        /*
+         * Restore previously entered email
+         */
+
         const savedEmail =
             localStorage.getItem(
                 "customerEmail"
@@ -309,11 +58,247 @@ document.addEventListener(
 
         if (savedEmail) {
 
-            document.getElementById(
-                "customerEmail"
-            ).value = savedEmail;
+            emailInput.value =
+                savedEmail;
 
         }
+
+
+        /*
+         * Identify Customer
+         */
+
+        identifyButton.addEventListener(
+            "click",
+            function () {
+
+                const email =
+                    emailInput.value.trim();
+
+
+                if (!email) {
+
+                    customerMessage.textContent =
+                        "Please enter your email.";
+
+                    return;
+
+                }
+
+
+                if (
+                    !email.includes("@")
+                ) {
+
+                    customerMessage.textContent =
+                        "Please enter a valid email.";
+
+                    return;
+
+                }
+
+
+                /*
+                 * Store email locally.
+                 */
+
+                localStorage.setItem(
+                    "customerEmail",
+                    email
+                );
+
+
+                customerMessage.textContent =
+                    "Customer identified successfully.";
+
+            }
+        );
+
+
+        /*
+         * ============================================
+         * PRODUCT BUTTONS
+         * ============================================
+         */
+
+        const productCards =
+            document.querySelectorAll(
+                ".product-card"
+            );
+
+
+        productCards.forEach(
+            function (card) {
+
+
+                /*
+                 * ------------------------------
+                 * View Product
+                 * ------------------------------
+                 */
+
+                const viewButton =
+                    card.querySelector(
+                        ".view-product-btn"
+                    );
+
+
+                viewButton.addEventListener(
+                    "click",
+                    function () {
+
+                        const productName =
+                            card.dataset.productName;
+
+
+                        alert(
+                            "You selected: " +
+                            productName
+                        );
+
+                    }
+                );
+
+
+                /*
+                 * ------------------------------
+                 * Add To Cart
+                 * ------------------------------
+                 */
+
+                const cartButton =
+                    card.querySelector(
+                        ".cart-button"
+                    );
+
+
+                cartButton.addEventListener(
+                    "click",
+                    function () {
+
+                        cartCount++;
+
+
+                        cartCountElement.textContent =
+                            cartCount;
+
+
+                        const productName =
+                            card.dataset.productName;
+
+
+                        alert(
+                            productName +
+                            " added to cart."
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+         * ============================================
+         * SEARCH
+         * ============================================
+         */
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const searchButton =
+            document.getElementById(
+                "searchButton"
+            );
+
+
+        function performSearch() {
+
+            const searchTerm =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!searchTerm) {
+
+                productCards.forEach(
+                    function (card) {
+
+                        card.style.display =
+                            "";
+
+                    }
+                );
+
+                return;
+
+            }
+
+
+            productCards.forEach(
+                function (card) {
+
+                    const productName =
+                        card.dataset.productName
+                            .toLowerCase();
+
+
+                    const category =
+                        card.dataset.productCategory
+                            .toLowerCase();
+
+
+                    if (
+                        productName.includes(
+                            searchTerm
+                        ) ||
+                        category.includes(
+                            searchTerm
+                        )
+                    ) {
+
+                        card.style.display =
+                            "";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        searchButton.addEventListener(
+            "click",
+            performSearch
+        );
+
+
+        searchInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    performSearch();
+
+                }
+
+            }
+        );
 
     }
 );
