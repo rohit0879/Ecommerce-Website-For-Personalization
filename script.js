@@ -2,16 +2,10 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        console.log(
-            "Data360 Store loaded."
-        );
 
-
-        /*
-         * ============================================
-         * CART
-         * ============================================
-         */
+        /* =====================================================
+           CART
+        ===================================================== */
 
         let cartCount = 0;
 
@@ -22,11 +16,9 @@ document.addEventListener(
             );
 
 
-        /*
-         * ============================================
-         * CUSTOMER EMAIL
-         * ============================================
-         */
+        /* =====================================================
+           CUSTOMER EMAIL
+        ===================================================== */
 
         const emailInput =
             document.getElementById(
@@ -46,10 +38,6 @@ document.addEventListener(
             );
 
 
-        /*
-         * Restore previously entered email
-         */
-
         const savedEmail =
             localStorage.getItem(
                 "customerEmail"
@@ -64,13 +52,10 @@ document.addEventListener(
         }
 
 
-        /*
-         * Identify Customer
-         */
-
         identifyButton.addEventListener(
             "click",
             function () {
+
 
                 const email =
                     emailInput.value.trim();
@@ -86,9 +71,7 @@ document.addEventListener(
                 }
 
 
-                if (
-                    !email.includes("@")
-                ) {
+                if (!email.includes("@")) {
 
                     customerMessage.textContent =
                         "Please enter a valid email.";
@@ -97,10 +80,6 @@ document.addEventListener(
 
                 }
 
-
-                /*
-                 * Store email locally.
-                 */
 
                 localStorage.setItem(
                     "customerEmail",
@@ -115,11 +94,10 @@ document.addEventListener(
         );
 
 
-        /*
-         * ============================================
-         * PRODUCT BUTTONS
-         * ============================================
-         */
+
+        /* =====================================================
+           PRODUCTS
+        ===================================================== */
 
         const productCards =
             document.querySelectorAll(
@@ -131,11 +109,9 @@ document.addEventListener(
             function (card) {
 
 
-                /*
-                 * ------------------------------
-                 * View Product
-                 * ------------------------------
-                 */
+                /* =============================================
+                   VIEW PRODUCT
+                ============================================= */
 
                 const viewButton =
                     card.querySelector(
@@ -147,12 +123,13 @@ document.addEventListener(
                     "click",
                     function () {
 
+
                         const productName =
                             card.dataset.productName;
 
 
                         alert(
-                            "You selected: " +
+                            "Viewing " +
                             productName
                         );
 
@@ -160,11 +137,10 @@ document.addEventListener(
                 );
 
 
-                /*
-                 * ------------------------------
-                 * Add To Cart
-                 * ------------------------------
-                 */
+
+                /* =============================================
+                   ADD TO CART
+                ============================================= */
 
                 const cartButton =
                     card.querySelector(
@@ -175,6 +151,7 @@ document.addEventListener(
                 cartButton.addEventListener(
                     "click",
                     function () {
+
 
                         cartCount++;
 
@@ -199,11 +176,10 @@ document.addEventListener(
         );
 
 
-        /*
-         * ============================================
-         * SEARCH
-         * ============================================
-         */
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
 
         const searchInput =
             document.getElementById(
@@ -219,59 +195,53 @@ document.addEventListener(
 
         function performSearch() {
 
+
             const searchTerm =
                 searchInput.value
                     .trim()
                     .toLowerCase();
 
 
-            if (!searchTerm) {
-
-                productCards.forEach(
-                    function (card) {
-
-                        card.style.display =
-                            "";
-
-                    }
-                );
-
-                return;
-
-            }
-
-
             productCards.forEach(
                 function (card) {
 
-                    const productName =
-                        card.dataset.productName
+
+                    const name =
+                        card.dataset
+                            .productName
+                            .toLowerCase();
+
+
+                    const sku =
+                        card.dataset
+                            .productSku
                             .toLowerCase();
 
 
                     const category =
-                        card.dataset.productCategory
+                        card.dataset
+                            .productCategory
                             .toLowerCase();
 
 
-                    if (
-                        productName.includes(
+                    const matches =
+                        name.includes(
                             searchTerm
                         ) ||
+
+                        sku.includes(
+                            searchTerm
+                        ) ||
+
                         category.includes(
                             searchTerm
-                        )
-                    ) {
+                        );
 
-                        card.style.display =
-                            "";
 
-                    } else {
-
-                        card.style.display =
-                            "none";
-
-                    }
+                    card.style.display =
+                        matches
+                            ? ""
+                            : "none";
 
                 }
             );
