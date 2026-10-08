@@ -2,37 +2,26 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Data360 Store</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <!-- Salesforce Data 360 / Personalization Web SDK -->
-    <script src="https://cdn.c360a.salesforce.com/beacon/c360a/40716e49-b459-4f2a-a257-9c791028a830/scripts/c360a.min.js"></script>
-
-    <script>
-        window.addEventListener("load", function () {
-
-            if (window.SalesforceInteractions) {
-
-                SalesforceInteractions.init();
-
-                // Debug logging during development
-                SalesforceInteractions.setLoggingLevel(4);
-
-                console.log("Salesforce Interactions SDK initialized.");
-
-            } else {
-
-                console.error(
-                    "SalesforceInteractions SDK was not loaded."
-                );
-
-            }
-        });
+    <!-- Salesforce Data 360 Website Connector -->
+    <script
+        src="https://cdn.c360a.salesforce.com/beacon/c360a/40716e49-b459-4f2a-a257-9c791028a830/scripts/c360a.min.js">
     </script>
+
 </head>
 
 <body>
@@ -45,15 +34,30 @@
             Data360 Store
         </div>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#about">About</a>
+        <nav class="navigation">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#products">
+                Products
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
         </nav>
 
-        <div class="cart">
+        <div class="cart-display">
+
             🛒 Cart
-            <span id="cartCount">0</span>
+
+            <span id="cartCount">
+                0
+            </span>
+
         </div>
 
     </header>
@@ -61,18 +65,26 @@
 
     <!-- ================= HERO ================= -->
 
-    <section id="home" class="hero">
+    <section
+        id="home"
+        class="hero"
+    >
 
         <div class="hero-content">
 
-            <h1>Welcome to Data360 Store</h1>
+            <h1>
+                Welcome to Data360 Store
+            </h1>
 
             <p>
-                A demo e-commerce website connected with
+                Demo ecommerce website for
                 Salesforce Data 360.
             </p>
 
-            <a href="#products" class="hero-button">
+            <a
+                href="#products"
+                class="hero-button"
+            >
                 Shop Now
             </a>
 
@@ -81,16 +93,19 @@
     </section>
 
 
-    <!-- ================= CUSTOMER IDENTIFICATION ================= -->
+    <!-- ================= CUSTOMER EMAIL ================= -->
 
     <section class="customer-section">
 
         <div class="customer-box">
 
-            <h2>Customer Information</h2>
+            <h2>
+                Customer Information
+            </h2>
 
             <p>
-                Enter your email to simulate a known customer.
+                Enter your email to identify
+                yourself as a customer.
             </p>
 
             <div class="customer-form">
@@ -99,15 +114,22 @@
                     type="email"
                     id="customerEmail"
                     placeholder="Enter your email"
+                    autocomplete="email"
                 >
 
-                <button onclick="identifyCustomer()">
+                <button
+                    type="button"
+                    id="identifyCustomerBtn"
+                >
                     Identify Customer
                 </button>
 
             </div>
 
-            <p id="customerMessage"></p>
+            <p
+                id="customerMessage"
+                class="customer-message"
+            ></p>
 
         </div>
 
@@ -118,17 +140,22 @@
 
     <section class="search-section">
 
-        <h2>Find Products</h2>
+        <h2>
+            Search Products
+        </h2>
 
         <div class="search-box">
 
             <input
-                type="text"
+                type="search"
                 id="searchInput"
                 placeholder="Search products..."
             >
 
-            <button onclick="searchProducts()">
+            <button
+                type="button"
+                id="searchButton"
+            >
                 Search
             </button>
 
@@ -139,33 +166,56 @@
 
     <!-- ================= PRODUCTS ================= -->
 
-    <section id="products" class="products-section">
+    <section
+        id="products"
+        class="products-section"
+    >
 
-        <h2>Our Products</h2>
+        <h2>
+            Our Products
+        </h2>
 
         <p class="section-description">
-            Browse our products and interact with the website.
+
+            Select a product or add it to
+            your shopping cart.
+
         </p>
 
-        <div class="products-container" id="productsContainer">
 
-            <!-- Product 1 -->
+        <div
+            id="productsContainer"
+            class="products-container"
+        >
+
+
+            <!-- ================= PRODUCT 1 ================= -->
 
             <div
                 class="product-card"
+
                 data-product-id="P001"
+
                 data-product-name="Smart Watch"
+
                 data-product-price="4999"
+
+                data-product-category="Electronics"
             >
 
                 <div class="product-image">
                     ⌚
                 </div>
 
-                <h3>Smart Watch</h3>
+                <h3>
+                    Smart Watch
+                </h3>
 
                 <p class="product-description">
-                    Smart fitness watch with health tracking.
+
+                    Smart fitness watch with
+                    health tracking.
+
                 </p>
 
                 <p class="price">
@@ -173,14 +223,15 @@
                 </p>
 
                 <button
-                    onclick="viewProduct('P001', 'Smart Watch', 4999)"
+                    type="button"
+                    class="view-product-btn"
                 >
                     View Product
                 </button>
 
                 <button
+                    type="button"
                     class="cart-button"
-                    onclick="addToCart('P001', 'Smart Watch', 4999)"
                 >
                     Add to Cart
                 </button>
@@ -188,23 +239,33 @@
             </div>
 
 
-            <!-- Product 2 -->
+            <!-- ================= PRODUCT 2 ================= -->
 
             <div
                 class="product-card"
+
                 data-product-id="P002"
+
                 data-product-name="Wireless Headphones"
+
                 data-product-price="2999"
+
+                data-product-category="Electronics"
             >
 
                 <div class="product-image">
                     🎧
                 </div>
 
-                <h3>Wireless Headphones</h3>
+                <h3>
+                    Wireless Headphones
+                </h3>
 
                 <p class="product-description">
-                    Premium wireless headphones with noise cancellation.
+
+                    Premium wireless headphones
+                    with noise cancellation.
+
                 </p>
 
                 <p class="price">
@@ -212,14 +273,15 @@
                 </p>
 
                 <button
-                    onclick="viewProduct('P002', 'Wireless Headphones', 2999)"
+                    type="button"
+                    class="view-product-btn"
                 >
                     View Product
                 </button>
 
                 <button
+                    type="button"
                     class="cart-button"
-                    onclick="addToCart('P002', 'Wireless Headphones', 2999)"
                 >
                     Add to Cart
                 </button>
@@ -227,23 +289,33 @@
             </div>
 
 
-            <!-- Product 3 -->
+            <!-- ================= PRODUCT 3 ================= -->
 
             <div
                 class="product-card"
+
                 data-product-id="P003"
+
                 data-product-name="Laptop"
+
                 data-product-price="64999"
+
+                data-product-category="Computers"
             >
 
                 <div class="product-image">
                     💻
                 </div>
 
-                <h3>Laptop</h3>
+                <h3>
+                    Laptop
+                </h3>
 
                 <p class="product-description">
-                    High-performance laptop for developers.
+
+                    High-performance laptop
+                    for developers.
+
                 </p>
 
                 <p class="price">
@@ -251,14 +323,15 @@
                 </p>
 
                 <button
-                    onclick="viewProduct('P003', 'Laptop', 64999)"
+                    type="button"
+                    class="view-product-btn"
                 >
                     View Product
                 </button>
 
                 <button
+                    type="button"
                     class="cart-button"
-                    onclick="addToCart('P003', 'Laptop', 64999)"
                 >
                     Add to Cart
                 </button>
@@ -266,23 +339,33 @@
             </div>
 
 
-            <!-- Product 4 -->
+            <!-- ================= PRODUCT 4 ================= -->
 
             <div
                 class="product-card"
+
                 data-product-id="P004"
+
                 data-product-name="Smartphone"
+
                 data-product-price="24999"
+
+                data-product-category="Mobile"
             >
 
                 <div class="product-image">
                     📱
                 </div>
 
-                <h3>Smartphone</h3>
+                <h3>
+                    Smartphone
+                </h3>
 
                 <p class="product-description">
-                    Latest smartphone with powerful performance.
+
+                    Latest smartphone with
+                    powerful performance.
+
                 </p>
 
                 <p class="price">
@@ -290,14 +373,15 @@
                 </p>
 
                 <button
-                    onclick="viewProduct('P004', 'Smartphone', 24999)"
+                    type="button"
+                    class="view-product-btn"
                 >
                     View Product
                 </button>
 
                 <button
+                    type="button"
                     class="cart-button"
-                    onclick="addToCart('P004', 'Smartphone', 24999)"
                 >
                     Add to Cart
                 </button>
@@ -311,19 +395,21 @@
 
     <!-- ================= ABOUT ================= -->
 
-    <section id="about" class="about">
+    <section
+        id="about"
+        class="about"
+    >
 
-        <h2>About Data360 Store</h2>
+        <h2>
+            About Data360 Store
+        </h2>
 
         <p>
-            This website is created for testing Salesforce
-            Data 360 Website Connector and Personalization.
-        </p>
 
-        <p>
-            Customer interactions such as page views,
-            product views, searches and cart actions can
-            be captured and sent to Salesforce.
+            This website is created to test
+            Salesforce Data 360 Website Connector,
+            Sitemap and Web SDK.
+
         </p>
 
     </section>
@@ -344,7 +430,11 @@
     </footer>
 
 
+    <!-- Normal website JavaScript -->
     <script src="script.js"></script>
+
+    <!-- Salesforce Sitemap -->
+    <script src="sitemap.js"></script>
 
 </body>
 
